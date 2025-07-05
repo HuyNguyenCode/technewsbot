@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "discord.js": "^14.21.0",
+    "dotenv": "^17.0.1",
     "node-schedule": "^2.1.1",
     "rss-parser": "^3.13.0"
   }
