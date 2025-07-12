@@ -1,6 +1,6 @@
 const RSSParser = require("rss-parser");
 const { Client, GatewayIntentBits } = require("discord.js");
-require('dotenv').config();
+require("dotenv").config();
 const parser = new RSSParser();
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
@@ -76,13 +76,14 @@ function scheduleDailyReset() {
   }, msUntilReset);
 }
 
-const min = 5, max = 10;
+const min = 5,
+  max = 10;
 
 async function scheduleNextSend() {
   await processQueue();
   const randomDelay =
     (Math.floor(Math.random() * (max - min + 1)) + min) * 60 * 1000;
-  console.log(`⏳ Next article will be sent in ${randomDelay/60000} minutes`);
+  console.log(`⏳ Next article will be sent in ${randomDelay / 60000} minutes`);
   setTimeout(scheduleNextSend, randomDelay);
 }
 
@@ -92,14 +93,18 @@ client.once("ready", () => {
   scheduleDailyReset();
   setInterval(fetchFeeds, 30 * 60 * 1000); // quét RSS mỗi 30 phút
   scheduleNextSend(); // bắt đầu gửi tin dãn cách
-  
 });
 client.login(process.env.BOT_TOKEN);
 
-const express = require('express');
+const express = require("express");
 const app = express();
-app.get('/', (req, res) => res.send('Bot is running!'));
-app.listen(3000, () => {
-  console.log('🌐 Express server started');
-   console.log(`Repl is running at https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`);
+const port = process.env.PORT || 3000;
+
+// Route cho UptimeRobot kiểm tra
+app.get("/", (req, res) => {
+  res.status(200).send("✅ Bot is alive!");
+});
+
+app.listen(port, () => {
+  console.log(`✅ HTTP server listening on port ${port}`);
 });
