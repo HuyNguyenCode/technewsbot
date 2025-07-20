@@ -109,3 +109,18 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`✅ HTTP server listening on port ${port}`);
 });
+
+
+const axios = require("axios");
+
+function selfPing() {
+  const url = "https://technewsbot-1-vp26.onrender.com/"; // thay bằng link Render app
+  axios.get(url).then(() => {
+    console.log("📡 Self-ping successful.");
+  }).catch((err) => {
+    console.error("⚠️ Self-ping failed:", err.message);
+  });
+}
+
+// Ping mỗi 5 phút
+setInterval(selfPing, 5 * 60 * 1000);
