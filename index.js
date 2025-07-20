@@ -1,10 +1,11 @@
 const RSSParser = require("rss-parser");
 const { Client, GatewayIntentBits } = require("discord.js");
-require("dotenv").config();
+
 const parser = new RSSParser();
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 });
+
 
 const RSS_FEEDS = [
   "https://techcrunch.com/feed/",
